@@ -1,6 +1,6 @@
 package list
 
-import "github.com/LXJ0000/basic-go/lib/errs"
+import "github.com/LXJ0000/go-lib/errs"
 
 type node struct {
 	val  int

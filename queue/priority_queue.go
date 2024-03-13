@@ -1,6 +1,6 @@
 package queue
 
-import "github.com/LXJ0000/basic-go/lib"
+import "github.com/LXJ0000/go-lib"
 
 type PriorityQueue[T lib.Ordered] struct {
 	data []T

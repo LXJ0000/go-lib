@@ -1,4 +1,4 @@
-module github.com/LXJ0000/basic-go/lib
+module github.com/LXJ0000/go-lib
 
 go 1.22.1
 
