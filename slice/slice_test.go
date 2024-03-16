@@ -2,6 +2,7 @@ package slice
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -154,4 +155,12 @@ func TestUnique(t *testing.T) {
 			require.Equal(t, tc.expected, result)
 		})
 	}
+}
+
+func TestMap(t *testing.T) {
+	src := []int{1, 2, 3, 4}
+	dst := Map[int, int](src, func(src int) int {
+		return src + 1
+	})
+	fmt.Println(dst)
 }
