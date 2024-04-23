@@ -3,24 +3,41 @@ package queue
 import "github.com/LXJ0000/go-lib"
 
 type PriorityQueue[T lib.Ordered] struct {
-	data []T
-	size int
+	data    []T
+	size    int
+	maxHeap bool
 }
 
 func NewPriorityQueue[T lib.Ordered]() *PriorityQueue[T] {
 	return &PriorityQueue[T]{
-		data: []T{0},
-		size: 0,
+		data:    []T{0},
+		size:    0,
+		maxHeap: false,
 	}
+}
+
+func WithMaxHeap[T lib.Ordered](q *PriorityQueue[T]) *PriorityQueue[T] {
+	q.maxHeap = true
+	return q
 }
 
 func (h *PriorityQueue[T]) down(u int) {
 	t, n := u, h.size
 
-	if u*2 <= n && h.data[t] > h.data[u*2] {
+	check := func(a, b T) bool {
+		return a > b
+	}
+	if h.maxHeap {
+		check = func(a, b T) bool {
+			return a < b
+		}
+	}
+
+	if u*2 <= n && check(h.data[t], h.data[u*2]) {
 		t = u * 2
 	}
-	if u*2+1 <= n && h.data[t] > h.data[u*2+1] {
+
+	if u*2+1 <= n && check(h.data[t], h.data[u*2+1]) {
 		t = u*2 + 1
 	}
 	if t != u {
@@ -30,7 +47,16 @@ func (h *PriorityQueue[T]) down(u int) {
 }
 
 func (h *PriorityQueue[T]) up(u int) {
-	for u/2 != 0 && h.data[u] < h.data[u/2] {
+	check := func(a, b T) bool {
+		return a < b
+	}
+	if h.maxHeap {
+		check = func(a, b T) bool {
+			return a > b
+		}
+	}
+
+	for u/2 != 0 && check(h.data[u], h.data[u/2]) {
 		h.data[u], h.data[u/2] = h.data[u/2], h.data[u]
 		u >>= 1
 	}
@@ -54,9 +80,9 @@ func (h *PriorityQueue[T]) Front() T {
 	return h.data[1]
 }
 
-func (g *PriorityQueue[T]) Size() int {
-	return g.size
+func (h *PriorityQueue[T]) Size() int {
+	return h.size
 }
-func (g *PriorityQueue[T]) Empty() bool {
-	return g.size == 0
+func (h *PriorityQueue[T]) Empty() bool {
+	return h.size == 0
 }
