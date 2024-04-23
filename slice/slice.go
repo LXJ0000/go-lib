@@ -100,3 +100,11 @@ func Map[Src any, Dst any](src []Src, m func(src Src) Dst) []Dst {
 	}
 	return dst
 }
+
+func ContainsNum[T lib.Ordered](slice []T, num T) bool {
+	mp := set.NewMapSet[T](len(slice))
+	for _, s := range slice {
+		mp.Add(s)
+	}
+	return mp.Exists(num)
+}
