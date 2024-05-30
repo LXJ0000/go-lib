@@ -93,12 +93,12 @@ func Unique[T lib.Ordered](nums []T) []T {
 	return newNums
 }
 
-func Map[Src any, Dst any](src []Src, m func(src Src) Dst) []Dst {
-	dst := make([]Dst, len(src))
-	for i, s := range src {
-		dst[i] = m(s)
+func Map[T, U any](slice []T, mapper func(T) U) []U {
+	result := make([]U, len(slice))
+	for i, v := range slice {
+		result[i] = mapper(v)
 	}
-	return dst
+	return result
 }
 
 func ContainsNum[T lib.Ordered](slice []T, num T) bool {
