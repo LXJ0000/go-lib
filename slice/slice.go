@@ -89,8 +89,7 @@ func Unique[T lib.Ordered](nums []T) []T {
 	} else {
 		uniqueBySet(nums)
 	}
-	Shrink(newNums)
-	return newNums
+	return Shrink(newNums)
 }
 
 func Map[T, U any](slice []T, mapper func(T) U) []U {
