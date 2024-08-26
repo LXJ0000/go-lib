@@ -17,11 +17,9 @@ func NewPriorityQueue[T interface{}](compare func(first, second T) bool) *Priori
 
 func (h *PriorityQueue[T]) down(u int) {
 	t, n := u, h.size
-
 	if u*2 <= n && h.compare(h.data[u*2], h.data[t]) {
 		t = u * 2
 	}
-
 	if u*2+1 <= n && h.compare(h.data[u*2+1], h.data[t]) {
 		t = u*2 + 1
 	}
